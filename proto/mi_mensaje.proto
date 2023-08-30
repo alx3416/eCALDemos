@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package pb;
+
+message HelloWorld
+{
+  string name      = 1;
+  int32 id         = 2;
+  float msg        = 3;
+  bool state       = 4;
+}

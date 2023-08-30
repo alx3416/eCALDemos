@@ -1,5 +1,4 @@
 import sys
-import time
 
 import ecal.core.core as ecal_core
 from ecal.core.subscriber import ProtoSubscriber

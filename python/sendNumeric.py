@@ -7,7 +7,8 @@ import proto.mi_mensaje_pb2 as mi_mensaje_pb2
 
 ecal_core.initialize(sys.argv, "Python Protobuf Publisher")
 
-pub = ProtoPublisher("mensaje 1", mi_mensaje_pb2.HelloWorld)
+pub = ProtoPublisher("mensaje 1",
+                     mi_mensaje_pb2.HelloWorld)
 protobuf_message = mi_mensaje_pb2.HelloWorld()
 counter = 0
 

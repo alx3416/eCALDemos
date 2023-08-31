@@ -7,7 +7,8 @@ import proto.mi_mensaje_pb2 as mi_mensaje_pb2
 
 
 def callback(topic_name, proto_msg, time):
-    print("Message {} from {}: {}".format(proto_msg.id, proto_msg.name, proto_msg.msg))
+    print("Message {} from {}: {}".format(proto_msg.id,
+                                          proto_msg.name, proto_msg.msg))
 
 ecal_core.initialize(sys.argv, "Python Protobuf Subscriber Callback")
 sub = ProtoSubscriber("mensaje 1", mi_mensaje_pb2.HelloWorld)

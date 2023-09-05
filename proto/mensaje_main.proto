@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+import "mensaje_enum.proto";
+import "mensaje_data.proto";
+package pb;
+
+message webcam
+{
+  mensaje_enum status     = 1;
+  imagen frame            = 2;
+}

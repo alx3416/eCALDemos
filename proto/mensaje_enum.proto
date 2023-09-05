@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package pb;
+
+enum states {
+  idle      = 0;
+  standby   = 1;
+  init      = 2;
+  run       = 3;
+  stop      = 4;
+}
+
+message mensaje_enum
+{
+  states status      = 1;
+}

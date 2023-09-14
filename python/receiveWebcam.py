@@ -1,6 +1,7 @@
 import sys
 import cv2 as cv
 import numpy as np
+import lz4.frame
 
 import ecal.core.core as ecal_core
 from ecal.core.subscriber import ProtoSubscriber
@@ -16,8 +17,20 @@ while ecal_core.ok():
         print(protobuf_message.frame.name)
         buffer = np.frombuffer(protobuf_message.frame.data,
                                dtype=np.uint8)
-        frame = np.reshape(buffer, (protobuf_message.frame.height,
+        # No compression
+        # frame = np.reshape(buffer, (protobuf_message.frame.height,
+        #                             protobuf_message.frame.width, 3))
+
+        # JPEG
+        # frame = cv.imdecode(buffer, cv.IMREAD_COLOR)
+
+        # LZ4
+        buffer = lz4.frame.decompress(protobuf_message.frame.data)
+        frame = np.frombuffer(buffer, np.uint8)
+        frame = np.reshape(frame, (protobuf_message.frame.height,
                                     protobuf_message.frame.width, 3))
+
+
         cv.imshow('my webcam received', frame)
         if cv.waitKey(1) == 27:
             break  # esc to quit

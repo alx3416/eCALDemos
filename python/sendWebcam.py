@@ -29,9 +29,18 @@ pub = ProtoPublisher("webcam_data",
 protobuf_message = mensaje_main_pb2.webcam()
 cam = cv.VideoCapture(0)
 
+face_cascade = cv.CascadeClassifier('haarcascade_frontalface_default.xml')
+
 while ecal_core.ok():
     # OpenCV related
     ret_val, img = cam.read()
+    # face detection
+    img_gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+    faces = face_cascade.detectMultiScale(img_gray, 1.1, 4)
+    del protobuf_message.frame.roilocation[:]
+    for (x, y, w, h) in faces:
+        protobuf_message.frame.roilocation.extend([x, y, w, h])
+        cv.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
     if ret_val:
         cv.imshow('my webcam', img)
         if cv.waitKey(1) == 27:
@@ -43,8 +52,7 @@ while ecal_core.ok():
 
     protobuf_message = compress_image(protobuf_message,
                                       'JPEG')
-    del protobuf_message.frame.roilocation[:]
-    protobuf_message.frame.roilocation.extend([1, 2, 3, 4])
+
 
     pub.send(protobuf_message)
 

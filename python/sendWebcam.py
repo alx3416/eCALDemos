@@ -43,6 +43,8 @@ while ecal_core.ok():
 
     protobuf_message = compress_image(protobuf_message,
                                       'JPEG')
+    del protobuf_message.frame.roilocation[:]
+    protobuf_message.frame.roilocation.extend([1, 2, 3, 4])
 
     pub.send(protobuf_message)
 

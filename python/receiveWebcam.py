@@ -22,13 +22,13 @@ while ecal_core.ok():
         #                             protobuf_message.frame.width, 3))
 
         # JPEG
-        # frame = cv.imdecode(buffer, cv.IMREAD_COLOR)
+        frame = cv.imdecode(buffer, cv.IMREAD_COLOR)
 
         # LZ4
-        buffer = lz4.frame.decompress(protobuf_message.frame.data)
-        frame = np.frombuffer(buffer, np.uint8)
-        frame = np.reshape(frame, (protobuf_message.frame.height,
-                                    protobuf_message.frame.width, 3))
+        # buffer = lz4.frame.decompress(protobuf_message.frame.data)
+        # frame = np.frombuffer(buffer, np.uint8)
+        # frame = np.reshape(frame, (protobuf_message.frame.height,
+        #                            protobuf_message.frame.width, 3))
 
 
         cv.imshow('my webcam received', frame)

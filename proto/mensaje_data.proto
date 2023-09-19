@@ -24,6 +24,7 @@ message imagen
   bytes data                   = 4;
   compression imagecompression = 5;
   format imageformat           = 6;
+  repeated int32 roilocation   = 7;
 
 
 }

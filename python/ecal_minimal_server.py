@@ -2,6 +2,7 @@ import sys
 import time
 import ecal.core.core as ecal_core
 import ecal.core.service as ecal_service
+import proto.mi_mensaje_pb2 as mi_mensaje_pb2
 
 
 def main():
@@ -14,18 +15,16 @@ def main():
     # define the server method "function1"
     def function1_req_callback(method_name, req_type, resp_type, request):
         print("'DemoService' method '{}' called with {}".format(method_name, request))
-        return 0, bytes("thank you for calling this service :-)", "ascii")
-
-    # define the server method "ping" function
-    def ping_req_callback(method_name, req_type, resp_type, request):
-        print("'DemoService' method '{}' called with {}".format(method_name, request))
-        return 0, bytes("pong", "ascii")
+        protobuf_message = mi_mensaje_pb2.HelloWorld()
+        protobuf_message.name = "fulano menganillo"
+        protobuf_message.id = protobuf_message.id + 1
+        protobuf_message.msg = -123.456
+        protobuf_message.state = True
+        return 0, protobuf_message
 
     # define the server methods and connect them to the callbacks
-    server.add_method_callback("function1", "string", "string", function1_req_callback)
-    server.add_method_callback("ping", "ping_type", "pong_type", ping_req_callback)
+    server.add_method_callback("function1", "string", "bytes", function1_req_callback)
 
-    # idle
     while ecal_core.ok():
         time.sleep(6)
 

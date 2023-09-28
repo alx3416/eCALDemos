@@ -1,3 +1,7 @@
 # Default ignored files
 .idea
 __pycache__
+cmake-build-debug-visual-studio
+cmake-build-debug
+cmake-build-release-visual-studio
+cmake-build-release
